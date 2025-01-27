@@ -69,7 +69,7 @@ async fn main() {
 async fn answer<T: Ask>(diff: &str) {
     let response = T::ask(diff).await;
     match response {
-        Ok(answer) => println!("{} says: {}", T::name(), answer),
+        Ok(answer) => println!("{}", answer),
         Err(e) => println!("{} failed: {}", T::name(), e.message),
     }
 }
