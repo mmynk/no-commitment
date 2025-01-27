@@ -38,6 +38,20 @@ fn load_env() {
 
 pub trait Ask {
     fn name() -> &'static str;
+
+    fn prompt() -> &'static str {
+        "You are a terminal based AI assistant.\
+            You are supposed to generate commit messages.\
+            Your input is the output of `git diff` command.\
+            Generate a commit message summarizing the major changes based on the Git diff. Keep the message concise and to the point. Output multi-line messages only for complex or significant changes, and avoid detailing trivial changes like whitespace adjustments or minor refactorings. Focus on the major impact of the changes, such as new features, bug fixes, or larger refactorings.\
+            For simple diffs, generate a single line commit message.\
+            For complex diffs, generate a multi-line commit message in the format:\
+            A brief summary of the changes.\n\
+            \n\
+            - A detailed description of the changes.\
+            \n"
+    }
+
     fn ask(diff: &str) -> impl future::Future<Output = Result<String, error::Error>>;
 }
 

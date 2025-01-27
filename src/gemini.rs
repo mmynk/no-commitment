@@ -20,24 +20,11 @@ impl Ask for Gemini {
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert("Content-Type", "application/json".parse().unwrap());
 
-        let instruction = "You are a terminal based AI assistant.\
-            You are supposed to generate commit messages.\
-            Your input is the output of `git diff` command.\
-            Your output is a commit message. Be concise, there is no need to describe each and every change.\
-            For non-code changes (for example README), always generate a single line commit message.\
-            Again, be concise.\
-            For simple diffs, generate a single line commit message.\
-            For complex diffs, generate a multi-line commit message in the format:\
-            A brief summary of the changes.\n\
-            \n\
-            - A detailed description of the changes.\
-            \n";
-
         let body = serde_json::json!({
             "contents": [{
                 "role": "model",
                 "parts": {
-                    "text": instruction,
+                    "text": Self::prompt(),
                 },
             }, {
                 "role": "user",
