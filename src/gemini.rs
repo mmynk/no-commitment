@@ -14,7 +14,7 @@ impl Ask for Gemini {
 
     async fn ask(diff: &str) -> Result<String, Error> {
         let api_key = std::env::var(API_KEY)
-            .map_err(|_| Error::new("GOOGLE_API_KEY environment variable not set"))?;
+            .map_err(|_| Error::new(&Self::error_message(API_KEY)))?;
         let url = format!("{}?key={}", GEMINI_URL, api_key);
 
         let mut headers = reqwest::header::HeaderMap::new();

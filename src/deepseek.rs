@@ -13,7 +13,7 @@ impl Ask for Deepseek {
 
     async fn ask(diff: &str) -> Result<String, Error> {
         let api_key = std::env::var(API_KEY)
-            .map_err(|_| Error::new("DEEPSEEK_API_KEY environment variable not set"))?;
+            .map_err(|_| Error::new(&Self::error_message(API_KEY)))?;
 
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert("Content-Type", "application/json".parse().unwrap());
